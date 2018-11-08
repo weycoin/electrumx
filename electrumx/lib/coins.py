@@ -2302,3 +2302,27 @@ class CivXTestnet(CivX):
             return double_sha256(header)
         else:
             return hex_str_to_hash(CivXTestnet.GENESIS_HASH)
+
+
+class WeyCoin(Coin):
+    NAME = "WeyCoin"
+    SHORTNAME = "WAE"
+    NET = "mainnet"
+    XPUB_VERBYTES = bytes.fromhex("0488b21e")
+    XPRV_VERBYTES = bytes.fromhex("0488ade4")
+    GENESIS_HASH = ('000006ed0805a3f7db7c1430e73d52bd'
+                     'c1c3bbc278f3534117d8a0e4c86b88a5')
+    P2PKH_VERBYTE = bytes.fromhex("22")
+    P2SH_VERBYTES = [bytes.fromhex("05")]
+    WIF_BYTE = bytes.fromhex("cc")
+    DESERIALIZER = lib_tx.DeserializerSegWit
+    TX_COUNT_HEIGHT = 91134
+    TX_COUNT = 134988
+    TX_PER_BLOCK = 2
+    RPC_PORT = 11530
+
+    @classmethod
+    def header_hash(cls, header):
+        '''Given a header return the hash.'''
+        import lyra2re2_hash
+        return lyra2re2_hash.getPoWHash(header)
